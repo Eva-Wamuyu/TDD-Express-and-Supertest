@@ -36,12 +36,12 @@ describe("STUDENT CONTROLLER",()=>{
 
 
     it("should fetch one student details", async()=>{
-        const adm_no = '770606'
-        const res = await request(app).get(`/user/${adm_no}`)
+    
+        const res = await request(app).get(`/user/${req.adm_no}`)
 
         expect(res.status).toBe(200);
         
-        expect(res.body).toEqual(
+        expect(res.body.students).toEqual(
             expect.objectContaining({
                 adm_no: expect.any(String),
                 name: expect.any(String),
@@ -65,14 +65,14 @@ describe("STUDENT CONTROLLER",()=>{
         
     })
 
-    it('should return appropriate error when student with that id is not found',async()=>{
+    it('should return appropriate error when student with that adm is not found',async()=>{
        
         const adm_no = '770606'
         const res = await request(app).get(`/user/${adm_no}`)
         
 
         expect(res.status).toBe(404);
-        expect(res.body.error).toBe('Student with that id not found');
+        expect(res.body.error).toBe('Student with that adm not found');
         
     })
 
@@ -91,7 +91,7 @@ describe("STUDENT CONTROLLER",()=>{
             "adm_no": "770606",
             "fees_balance": 45
         }
-        const res = await request(app).patch(`/user/${adm_no}`)
+        const res = await request(app).patch(`/user/${req.adm_no}`)
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('Fees Updated successfully');
 

@@ -31,13 +31,73 @@ export const createStudent = async(req,res)=>{
         return res.status(500).json(
             
             {
-                status: "error",
-                body: "Error adding notebook"
+    
+                error: "Error adding student"
             }
         )
     }
 
 
+
+}
+
+
+export const getStudent = async(req,res) => {
+    try {
+        const adm_no = req.params.adm_no;
+        let response = await DB.exec('uspGetStudentDetails',{adm_no});
+        
+        console.log(adm_no)
+        if(response.recordset.length == 0){
+            return res.status(404).json(
+                {
+                    error: "Student with that adm not found"
+                })
+        }
+        return res.status(200).json(
+            {
+                status: "success",
+                students: response['recordset']
+            }
+        )
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(404).json(
+            {
+
+                error: "Student with that adm not found"
+            }
+        )
+    
+    }
+    
+    
+
+}
+
+export const getAllStudents = async(req,res) => {
+    try {
+
+        let response = await DB.exec('uspGetAllStudentDetails');
+        
+
+        return res.status(200).json(
+            {
+                status: 'success',
+                students: response['recordset']
+            }
+        )
+        
+    } catch (error) {
+        
+        return res.status(404).json(
+            {
+                error: "Students not found"
+            }
+        )
+        
+    }
 
 }
 

@@ -1,0 +1,24 @@
+POST http://localhost:3000/
+Content-Type: application/json
+
+{
+    "adm_no": "770606",
+    "full_name": "Halley Quin",
+    "student_class": "7",
+    "fees_balance": 0
+}
+
+
+
+###
+GET http://localhost:3000/
+
+
+###
+DELETE http://localhost:3000/
+
+
+
+###
+PATCH  http://localhost:3000/
+Content-Type: application/json

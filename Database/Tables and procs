@@ -1,0 +1,68 @@
+CREATE DATABASE WEEK7
+
+
+USE WEEK7
+
+
+CREATE TABLE students
+(
+    adm_no VARCHAR(200) PRIMARY KEY,
+    full_name VARCHAR(200) NOT NULL,
+    is_deleted BIT DEFAULT 0,
+    student_class VARCHAR(200) NOT NULL,
+    fees_balance NUMERIC NOT NULL,
+   
+)
+
+go
+
+
+CREATE OR ALTER PROC uspAddStudent(@adm_no VARCHAR(200),
+    @full_name VARCHAR(200),
+    @student_class VARCHAR(200),
+    @fees_balance NUMERIC)
+AS
+BEGIN
+    INSERT INTO students
+        (adm_no,full_name, student_class, fees_balance)
+    VALUES
+        (@adm_no, @full_name, @student_class, @fees_balance);
+        SELECT adm_no,full_name, student_class, fees_balance  FROM students WHERE adm_no=@adm_no
+END;
+
+
+GO
+CREATE OR ALTER PROC uspDeleteStudent(@adm_no VARCHAR(200))
+   AS
+BEGIN
+    UPDATE students
+        SET is_deleted = 1
+    WHERE
+        adm_no = @adm_no
+
+END;
+
+GO
+CREATE OR ALTER PROC uspGetStudentDetails(@adm_no VARCHAR(200))
+   AS
+BEGIN
+	SELECT * from students WHERE adm_no = @adm_no AND is_deleted = 0;
+END;
+
+GO
+CREATE OR ALTER PROC uspGetAllStudentDetails(@adm_no VARCHAR(200))
+   AS
+BEGIN
+	SELECT * from students WHERE is_deleted = 0;
+END;
+
+GO
+CREATE OR ALTER PROC uspUpdateFees(@fees_balance NUMERIC,@adm_no VARCHAR(200))
+   AS
+BEGIN
+    UPDATE students
+        SET fees_balance = @fees_balance
+    WHERE
+        adm_no = @adm_no AND is_deleted = 0;
+
+END;

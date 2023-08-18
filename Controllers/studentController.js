@@ -103,3 +103,30 @@ export const getAllStudents = async(req,res) => {
 
 
 
+export const deleteStudent = async (req, res) => {
+    try {
+
+        const adm_no = req.params.adm_no;
+        let response = await DB.exec('uspDeleteStudent',{adm_no});
+
+        return res.status(204).json(
+            {
+                message: "Student deleted successfully"
+            }
+        )
+
+
+        
+    } catch (error) {
+
+        return res.status(404).json(
+            {
+    
+                error: "Error Deleting"
+            }
+        )
+
+        
+    }
+
+}

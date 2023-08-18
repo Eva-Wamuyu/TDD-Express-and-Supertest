@@ -41,7 +41,7 @@ describe("STUDENT CONTROLLER",()=>{
 
         expect(res.status).toBe(200);
         
-        expect(res.body.students).toEqual(
+        expect(res.body.students[0]).toEqual(
             expect.objectContaining({
                 adm_no: expect.any(String),
                 name: expect.any(String),
@@ -67,10 +67,9 @@ describe("STUDENT CONTROLLER",()=>{
 
     it('should return appropriate error when student with that adm is not found',async()=>{
        
-        const adm_no = '770606'
+        const adm_no = '001'
         const res = await request(app).get(`/user/${adm_no}`)
         
-
         expect(res.status).toBe(404);
         expect(res.body.error).toBe('Student with that adm not found');
         
@@ -78,7 +77,7 @@ describe("STUDENT CONTROLLER",()=>{
 
     it("should soft delete a student", async()=>{
 
-        const adm_no = '770606'
+        const adm_no = '90606'
         const res = await request(app).delete(`/user/${adm_no}`)
 
         expect(res.status).toBe(204);

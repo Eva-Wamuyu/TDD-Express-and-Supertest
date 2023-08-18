@@ -12,8 +12,8 @@ export const createStudent = async(req,res)=>{
 
         return res.status(201).json(
             {
-                status: 'success',
-                message: 'Student Added Student'
+            
+                message: 'Student Added successfully'
             }
         )
 

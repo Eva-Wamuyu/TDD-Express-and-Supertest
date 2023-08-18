@@ -10,8 +10,9 @@ const req = {
 
 describe("STUDENT CONTROLLER",()=>{
     it("should create a new student", async()=>{
+        const adm = JSON.parse(Math.floor(Math.random() * 10000) + 90000);
         const req = {
-            "adm_no": "7706061",
+            "adm_no": adm,
             "full_name": "Halley Quin",
             "student_class": "7",
             "fees_balance": 0
